@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:34:18 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/13 00:50:19 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/13 16:33:28 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_line		*creat_new_elem(char *value, int size_value)
 		exit(EXIT_FAILURE);
 	new_elem->line = ft_strdup(value);
 	new_elem->size_line = size_value;
+	new_elem->value = -1;
 	new_elem->next = NULL;
 	return (new_elem);
 }
@@ -42,5 +43,18 @@ void				push_backline(t_line **line, char *value, \
 		while (temp_line->next)
 			temp_line = temp_line->next;
 		temp_line->next = new_elem;
+	}
+}
+
+void				ft_clearline(t_line **line)
+{
+	t_line		*delete;
+
+	while (*line)
+	{
+		delete = *line;
+		*line = (*line)->next;
+		free(delete->line);
+		free(delete);
 	}
 }

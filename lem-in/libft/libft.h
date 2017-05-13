@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 02:51:56 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/09 00:56:15 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/13 18:22:13 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,7 @@ void				print_array(int *board, int size);
 int					is_sorted_ascending_array(int *board, int size);
 int					is_sorted_descending_array(int *board, int size);
 int					getintsize(long long data);
+int					ft_strlen_matrice(char **board);
+int					is_digit(const char *s1);
+int					ft_strlen_n(const char *str, char character);
 #endif

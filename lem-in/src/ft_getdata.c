@@ -6,94 +6,117 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:58:25 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/13 02:38:41 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/13 19:58:37 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/data.h"
 #include "../inc/main.h"
 
-/*void		ft_check_value_com(t_lemin *lemin)
+static int		if_a_overflow_coord(char *s1, char *s2)
 {
-	t_com	*temp_com;
+	long long	data_1;
+	long long	data_2;
 
-	temp_com = lemin->coment;
-	while (temp_com)
+	if (ft_strlen(s1) > 11 || ft_strlen(s2) > 11)
+		return (0);
+	else
 	{
-		if (!ft_strcmp(temp_com->value, "##start"))
-		{
-			temp_com->valid = 1;
-			++lemin->start;
-		}
-		else if (!ft_strcmp(temp_com->value, "##end"))
-		{
-			temp_com->valid = 2;
-			++lemin->end;
-		}
-		else
-			temp_com->valid = -1;
-		temp_com = temp_com->next;
+		data_1 = ft_atoi(s1);
+		data_2 = ft_atoi(s2);
+		if (data_1 < MIN_INT || data_1 > MAX_INT)
+			return (0);
+		if (data_2 < MIN_INT || data_2 > MAX_INT)
+			return (0);
+		if (data_1 < 0 || data_2 < 0)
+			return (0);
 	}
-	if (!lemin->start || !lemin->end)
-		exit(0);
-}*/
-
-int			count_tab(char **board)
-{
-	int		i;
-	int		size;
-
-	i = -1;
-	size = 0;
-	while (board[++i])
-		++size;
-	return (size);
+	return (1);
 }
 
+static int		if_a_room(char *s1, char *s2)
+{
+	if (!is_digit(s1) || !is_digit(s2))
+		return (INVALID);
+	if (!(if_a_overflow_coord(s1, s2)))
+		return (INVALID);
+	return (ROOM);
+}
 
-void		ft_getdata_room(t_lemin *lemin)
+static int		if_a_connect(char *str)
+{
+	char	**board;
+
+	if (ft_strchr(str, '-') && ft_strlen_n(str, '-') != 1)
+		return (0);
+	if (ft_strlen_matrice(board = ft_strsplit(str, '-')) != 2)
+		return (clear_tab(board));
+	return (CONNECT);
+}
+
+static void		ft_getnbr_fourmi(t_lemin *lemin)
+{
+	t_line		*temp_line;
+	long long	data;
+
+	temp_line = lemin->line_copy;
+	while (ft_strlen(temp_line->line) == 0)
+		temp_line = temp_line->next;
+	if (!is_digit(temp_line->line))
+	{
+		temp_line->value = INVALID;
+		return ;
+	}
+	if (ft_strlen(temp_line->line) > 11)
+		temp_line->value = INVALID;
+	else
+	{
+		data = ft_atoi(temp_line->line);
+		if (data < 0 || data > MAX_INT)
+			temp_line->value = INVALID;
+		else
+			temp_line->value = NBR_FOURMI;
+	}
+}
+
+static void		lexer(t_lemin *lemin)
 {
 	t_line		*temp_line;
 	char		**board;
 
+	ft_getnbr_fourmi(lemin);
 	temp_line = lemin->line_copy;
 	while (temp_line)
 	{
-		board = ft_strsplit(temp_line->line, ' ');
-		if (board == NULL || count_tab(board) != 3)
-			clear_tab(board);
+		if (temp_line->value == NBR_FOURMI)
+		{
+			temp_line = temp_line->next;
+			continue ;
+		}
+		if (!ft_strlen(temp_line->line))
+			temp_line->value = INVALID;
+		else if (temp_line->line[0] == '#')
+		{
+			if (!ft_strcmp(temp_line->line, "##start"))
+				temp_line->value = START;
+			else if (!ft_strcmp(temp_line->line, "##end"))
+				temp_line->value = END;
+			else
+				temp_line->value = COMMENTAIRE;
+		}
 		else
 		{
-			if (ft_strlen(board[1]) < 11 && ft_strlen(board[2]) < 11) \
-				if (ft_atoi(board[1]) >= MIN_INT && ft_atoi(board[1]) \
-					<= MAX_INT && ft_atoi(board[2]) >= MIN_INT \
-											&& ft_atoi(board[2]) <= MAX_INT)
-					push_backroom(&lemin->room, temp_line->line, 1, board);
+			board = ft_strsplit(temp_line->line, ' ');
+			if (ft_strlen_matrice(board) == 3)
+				temp_line->value = if_a_room(board[1], board[2]);
+			else if (if_a_connect(temp_line->line))
+				temp_line->value = CONNECT;
+			else
+				temp_line->value = INVALID;
+			clear_tab(board);
 		}
 		temp_line = temp_line->next;
 	}
-	if (!lemin->room)
-		exit(0);
-}
-
-void		ft_getdata_com(t_lemin *lemin)
-{
-	t_line		*temp_line;
-
-	/*
-	 * get value commentaires !
-	 */
-	temp_line = lemin->line_copy;
-	while (temp_line)
-	{
-		if(temp_line->line[0] == '#')
-			push_back_coment(&lemin->coment, temp_line->line, \
-												ft_strlen(temp_line->line));
-		temp_line = temp_line->next;
-	}
-	if (!lemin->coment) /*Check if la liste est NULL */
-		exit(0);
-	ft_getdata_room(lemin);
 }
 
 void		ft_getdata(t_lemin *lemin)
@@ -117,5 +140,13 @@ void		ft_getdata(t_lemin *lemin)
 		free(str);
 		str = NULL;
 	}
-	ft_getdata_com(lemin);
+	if (lemin->copy_original == NULL || lemin->copy_original == NULL)
+		exit(0);
+	lexer(lemin);
+	while (lemin->line_copy)
+	{
+		printf("Value: %s ; enum : %d\n", lemin->line_copy->line, lemin->line_copy->value);
+		lemin->line_copy = lemin->line_copy->next;
+	}
 }
+
