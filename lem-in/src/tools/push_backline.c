@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:34:18 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/13 16:33:28 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/14 16:40:05 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_line		*creat_new_elem(char *value, int size_value)
 	new_elem->line = ft_strdup(value);
 	new_elem->size_line = size_value;
 	new_elem->value = -1;
+	new_elem->end_room = 0;
+	new_elem->start_room = 0;
 	new_elem->next = NULL;
 	return (new_elem);
 }

@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 19:33:28 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/13 18:54:08 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/14 18:57:35 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,20 @@ typedef struct			s_line
 	int					size_line;
 	enum s_mod_value	value;
 	struct s_line		*next;
+	int					start_room;
+	int					end_room;
 }						t_line;
 
 typedef struct			s_connect
 {
 	char				*data_1;
 	char				*data_2;
-	int					nbr_a;
 	struct s_connect	*next;
 }						t_connect;
 
 typedef struct			s_room
 {
 	char				*room;
-	int					valid;
 	char				**board;
 	struct s_room		*next;
 }						t_room;
@@ -67,6 +67,8 @@ typedef struct			s_lemin
 	int					start;
 	int					end;
 	int					nbr_fourmi;
+	char				*start_room;
+	char				*end_room;
 }						t_lemin;
 
 void					push_backline(t_line **line, char *value, \
@@ -75,6 +77,17 @@ void					ft_clearline(t_line **line);
 void					push_back_coment(t_com **com, char *value, \
 														int size_value);
 void					push_backroom(t_room **room, char *value, \
-												int valid, char **board);
+															char **board);
 void					ft_getdata(t_lemin *lemin);
+void					getnbr_fumy(t_lemin *lemin);
+int						check_nbr_fumy(t_lemin *lemin);
+void					get_quote(t_line **line);
+char					*manage_string(const char *str, int size);
+void					get_room(t_line **line);
+void					get_connect(t_line **line);
+int						check_dupliq_rooms(t_lemin *lemin);
+int						check_command(t_lemin *lemin);
+int						check_room_and_connect(t_lemin *lemin);
+int						if_room_after_command(t_lemin *lemin,\
+													enum s_mod_value mod);
 #endif
