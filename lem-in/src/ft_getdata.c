@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:58:25 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 17:15:37 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/14 23:55:28 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,8 @@ void		ft_getdata(t_lemin *lemin)
 	temp_str = NULL;
 	while (get_next_line(0, &str))
 	{
-		temp_str = lemin->copy_original;
-		lemin->copy_original = ft_strjoin(temp_str, str);
-		(temp_str != NULL) ? free(temp_str) : 0;
-		temp_str = lemin->copy_original;
-		lemin->copy_original = ft_strjoin(temp_str, "\n");
-		(temp_str != NULL) ? free(temp_str) : 0;
+		strjoin_noleaks(&lemin->copy_original, str);
+		strjoin_noleaks(&lemin->copy_original, "\n");
 		temp_str = ft_strtrim(str);
 		push_backline(&lemin->line_copy, temp_str, ft_strlen(temp_str));
 		free(temp_str);

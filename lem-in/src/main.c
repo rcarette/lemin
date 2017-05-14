@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 19:48:55 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 19:00:30 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/14 23:57:28 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int main(void)
 		ft_exit(&lemin);
 	/*else if (!check_dupliq_connect(&lemin))
 		ft_exit(&lemin);*/
+	printf("%s\n", lemin.copy_original);
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 02:51:56 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 12:16:41 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/14 23:48:27 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int					ft_isalnum(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 void				ft_memdel(void **ap);
-void				*ft_memalloc(size_t size, size_t ssize);
+void				*ft_memalloc(size_t size, size_t type);
 char				*ft_strnew(size_t size);
 void				ft_striter(char *s, void(*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *s));
@@ -114,4 +114,5 @@ int					ft_strlen_matrice(char **board);
 int					is_digit(const char *s1);
 int					ft_strlen_n(const char *str, char character);
 int					ft_count_words(const char *str);
+void				strjoin_noleaks(char **str_1, char *str_2);
 #endif
