@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 19:33:28 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 18:57:35 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/15 17:10:27 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef struct			s_line
 	int					size_line;
 	enum s_mod_value	value;
 	struct s_line		*next;
-	int					start_room;
-	int					end_room;
 }						t_line;
 
 typedef struct			s_connect
@@ -64,20 +62,18 @@ typedef struct			s_lemin
 	t_connect			*connect;
 	t_room				*room;
 	t_com				*coment;
-	int					start;
-	int					end;
-	int					nbr_fourmi;
-	char				*start_room;
-	char				*end_room;
+	int					nbr_ant;
 }						t_lemin;
 
 void					push_backline(t_line **line, char *value, \
-														int size_value);
+										int size_value, enum s_mod_value mod);
 void					ft_clearline(t_line **line);
 void					push_back_coment(t_com **com, char *value, \
 														int size_value);
 void					push_backroom(t_room **room, char *value, \
 															char **board);
+void					push_backconnect(t_connect **connect, \
+													char *data_1, char *data_2);
 void					ft_getdata(t_lemin *lemin);
 void					getnbr_fumy(t_lemin *lemin);
 int						check_nbr_fumy(t_lemin *lemin);

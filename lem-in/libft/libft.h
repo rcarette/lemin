@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 02:51:56 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 23:48:27 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/15 16:14:28 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,7 @@ int					is_digit(const char *s1);
 int					ft_strlen_n(const char *str, char character);
 int					ft_count_words(const char *str);
 void				strjoin_noleaks(char **str_1, char *str_2);
+int					transform_string_lower(char *str, char *model);
+char				*delimited_string(const char *str);
+int					ft_strlen_tab(char **board);
 #endif

@@ -6,14 +6,15 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:34:18 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/14 16:40:05 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/15 14:28:51 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/main.h"
 #include "../../inc/data.h"
 
-static t_line		*creat_new_elem(char *value, int size_value)
+static t_line		*creat_new_elem(char *value, int size_value, \
+														enum s_mod_value mod)
 {
 	t_line		*new_elem;
 
@@ -23,25 +24,23 @@ static t_line		*creat_new_elem(char *value, int size_value)
 		exit(EXIT_FAILURE);
 	new_elem->line = ft_strdup(value);
 	new_elem->size_line = size_value;
-	new_elem->value = -1;
-	new_elem->end_room = 0;
-	new_elem->start_room = 0;
+	new_elem->value = mod;
 	new_elem->next = NULL;
 	return (new_elem);
 }
 
 void				push_backline(t_line **line, char *value, \
-															int size_value)
+										int size_value, enum s_mod_value mod)
 {
 	t_line		*temp_line;
 	t_line		*new_elem;
 
 	temp_line = *line;
 	if (*line == NULL)
-		*line = creat_new_elem(value, size_value);
+		*line = creat_new_elem(value, size_value, mod);
 	else
 	{
-		new_elem = creat_new_elem(value, size_value);
+		new_elem = creat_new_elem(value, size_value, mod);
 		while (temp_line->next)
 			temp_line = temp_line->next;
 		temp_line->next = new_elem;
