@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 00:34:18 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/15 14:28:51 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/17 00:18:25 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../inc/data.h"
 
 static t_line		*creat_new_elem(char *value, int size_value, \
-														enum s_mod_value mod)
+														enum e_mod_value mod)
 {
 	t_line		*new_elem;
 
@@ -25,12 +25,14 @@ static t_line		*creat_new_elem(char *value, int size_value, \
 	new_elem->line = ft_strdup(value);
 	new_elem->size_line = size_value;
 	new_elem->value = mod;
+	new_elem->start = -1;
+	new_elem->end = -1;
 	new_elem->next = NULL;
 	return (new_elem);
 }
 
 void				push_backline(t_line **line, char *value, \
-										int size_value, enum s_mod_value mod)
+										int size_value, enum e_mod_value mod)
 {
 	t_line		*temp_line;
 	t_line		*new_elem;

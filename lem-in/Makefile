@@ -6,12 +6,12 @@
 #    By: rcarette <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/26 12:04:47 by rcarette          #+#    #+#              #
-#    Updated: 2017/05/15 17:44:11 by rcarette         ###   ########.fr        #
+#    Updated: 2017/05/17 03:19:06 by rcarette         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -fsanitize=address
 CC = clang $(FLAGS)
 INC = ../../include
 LIBFT = libft/
@@ -25,9 +25,11 @@ SRCS = src/main.c\
 
 
 TOOLS = src/tools/push_backline.c\
-		src/tools/push_back_coment.c\
 		src/tools/push_backroom.c\
 		src/tools/push_backconnect.c\
+		src/tools/ft_creat_graph.c\
+
+TOOLS_GET_DATA = src/tools/tools_getdata/get_informations.c\
 
 .PHONY: all clean flcean re
 
@@ -35,7 +37,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft/
-	$(CC) -g -o $(NAME) $(SRCS) $(TOOLS) $(ALL_INC)  -L $(LIBFT) -lft
+	$(CC) -g -o $(NAME) $(SRCS) $(TOOLS) $(TOOLS_GET_DATA) $(ALL_INC)  -L $(LIBFT) -lft
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(ALL_INC)

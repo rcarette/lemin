@@ -6,7 +6,7 @@
 /*   By: rcarette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 02:22:10 by rcarette          #+#    #+#             */
-/*   Updated: 2017/05/15 15:56:52 by rcarette         ###   ########.fr       */
+/*   Updated: 2017/05/17 02:12:02 by rcarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static t_room		*creat_new_elem(char *value, char **board)
 	new_elem->room = ft_strdup(value);
 	new_elem->board = board;
 	new_elem->next = NULL;
+	new_elem->coord_1 = ft_atoi(board[1]);
+	new_elem->coord_2 = ft_atoi(board[2]);
+	new_elem->informs = 0;
 	return (new_elem);
 }
 
